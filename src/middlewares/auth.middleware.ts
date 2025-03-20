@@ -12,8 +12,7 @@ export const authMiddleware = asyncHandler(
         if (!token) {
             throw new ApiError(
                 "Unauthorized", 
-                401, 
-                "Access Token is missing in request cookies"
+                401
             )
         }
 
@@ -21,11 +20,10 @@ export const authMiddleware = asyncHandler(
 
         const user = await UserModel.findById<UserInterface>(decodedToken?._id);
 
-        if (!user) {
+        if (!user || !user.refreshToken) {
             throw new ApiError(
                 "Unauthorized",
-                401,
-                "User not found in database"
+                401
             )
         }
 

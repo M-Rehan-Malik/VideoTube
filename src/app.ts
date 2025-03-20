@@ -11,13 +11,8 @@ app.use(cors({
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser())
-app.use("/", express.static("public"))
+app.use(express.static("public"))
 
 app.use('/api/user', userRouter);
-
-app.post('/test', (req, res) => {
-    console.log(req.body)
-    res.send(`Hello , ${req.body.name as string}`)
-    });
 
 export { app }
