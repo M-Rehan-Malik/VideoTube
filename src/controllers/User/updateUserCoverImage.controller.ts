@@ -4,6 +4,7 @@ import { ApiError } from "../../utils/ApiError";
 import { ApiResponse } from "../../utils/ApiResponse";
 import { asyncHandler } from "../../utils/asyncHandler";
 import { deleteFromCloudinary, uploadToCloudinary } from "../../utils/cloudinary";
+import { extractFileID } from "../../utils/extractFileID";
 
 export const updateUserCoverImageController = asyncHandler(async (req, res) => {
     const userId = (req as AuthenticatedRequest).user?._id;
@@ -28,10 +29,7 @@ export const updateUserCoverImageController = asyncHandler(async (req, res) => {
     }
 
     if (user.coverImage) {
-        // coverImage is like this https://res.cloudinary.com/string/image/upload/string/id.jpg
-        const oldCoverImageURLArray = user.coverImage.split("/");
-
-        const oldCoverImageID = oldCoverImageURLArray[oldCoverImageURLArray.length - 1].split(".")[0];
+        const oldCoverImageID = extractFileID(user.coverImage);
 
         await deleteFromCloudinary(oldCoverImageID);
     }

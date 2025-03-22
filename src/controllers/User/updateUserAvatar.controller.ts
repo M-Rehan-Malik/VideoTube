@@ -4,6 +4,7 @@ import { ApiError } from "../../utils/ApiError";
 import { ApiResponse } from "../../utils/ApiResponse";
 import { asyncHandler } from "../../utils/asyncHandler";
 import { deleteFromCloudinary, uploadToCloudinary } from "../../utils/cloudinary";
+import { extractFileID } from "../../utils/extractFileID";
 
 export const updateUserAvatarController = asyncHandler(async (req, res) => {
     const userId = (req as AuthenticatedRequest).user?._id;
@@ -27,10 +28,7 @@ export const updateUserAvatarController = asyncHandler(async (req, res) => {
         )
     }
 
-    // avatar is like this https://res.cloudinary.com/string/image/upload/string/id.jpg
-    const oldAvatarURLArray = user.avatar.split("/");
-
-    const oldAvatarID = oldAvatarURLArray[oldAvatarURLArray.length - 1].split(".")[0];
+    const oldAvatarID = extractFileID(user.avatar);
 
     await deleteFromCloudinary(oldAvatarID);
 
