@@ -5,6 +5,7 @@ import { userRouter } from "./routes/User.route";
 import { videoRouter } from "./routes/Video.route";
 import { tweetRouter } from "./routes/Tweet.route";
 import { subscriptionRouter } from "./routes/Subscription.route";
+import { playlistRouter } from "./routes/Playlist.route";
 
 const app: Application = express();
 
@@ -20,5 +21,6 @@ app.use('/api/user', userRouter);
 app.use('/api/video', videoRouter);
 app.use('/api/tweet', tweetRouter);
 app.use('/api/subscription', subscriptionRouter);
+app.use('/api/playlist', playlistRouter);
 
 export { app }
