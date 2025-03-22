@@ -39,26 +39,22 @@ router.route("/watch/:id").get(
 )
 
 router.route("/update-details/:id").patch(
-    authMiddleware,
     videoAdminMiddleware,
     updateVideoDetailsController
 )
 
 router.route("/update-thumbnail/:id").patch(
-    authMiddleware,
     videoAdminMiddleware,
     upload.single("thumbnail"),
     updateVideoThumbnailController
 )
 
 router.route("/delete/:id").delete(
-    authMiddleware,
     videoAdminMiddleware,
     deleteVideoController
 )
 
 router.route("/toggle-publish/:id").patch(
-    authMiddleware,
     videoAdminMiddleware,
     toggleIsPublishedController
 )
